@@ -358,7 +358,7 @@ requires-dist = [
     { name = "email-validator", specifier = ">=2.3.0" },
     { name = "flet", specifier = ">=0.82.2" },
     { name = "mysql-connector", specifier = ">=2.2.9" },
-    { name = "pydantic", specifier = ">=2.12.5" },
+    { name = "pydantic", specifier = ">=2.8.0" },
     { name = "pymysql", specifier = ">=1.1.2" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
 ]
