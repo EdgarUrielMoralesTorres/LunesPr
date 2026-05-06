@@ -1,34 +1,50 @@
 import flet as ft
 
 def DashboardView(page, tarea_controller):
-    user = page.session.get("get")
-    lista_tareas=ft.Column(scroll=ft.ScrollMode.ALWAYS, expand=True)
-    
+    user = page.user_data
+    lista_tareas = ft.Column(scroll=ft.ScrollMode.ALWAYS, expand=True)
+
     def refresh():
         lista_tareas.controls.clear()
-        for t in tarea_controller.obtener_lista(user['id_usuario']):
+        for t in tarea_controller.obtener_lista(user['idUs']):
             lista_tareas.controls.append(
                 ft.Card(
                     content=ft.Container(
-                        content=ft.ListTitle(
-                            title=ft.Text(t['titulo'],weight="bold"),
-                            subtitle=ft.Text(f"{t['descripcion']}\nPrioridad: {t['prioridad']}"),
-                            trailing=ft.Badge(content=ft.Text(t['estado']), bgcolor=ft.Colors.ORANGE_300)
-                        ), padding=10
+                        content=ft.ListTile(
+                            title=ft.Text(t['titulo'], weight="bold"),
+                            subtitle=ft.Text(
+                                f"{t['descripcion']}\nPrioridad: {t['prioridad']}"
+                            ),
+                            trailing=ft.Badge(
+                                content=ft.Text(t['estado']),
+                                bgcolor=ft.Colors.ORANGE_300
+                            )
+                        ),
+                        padding=10
                     )
                 )
             )
         page.update()
-    txt_titulo = ft.TextFIeld(label="Nueva Tarea", expand=True)
-    
+
+    txt_titulo = ft.TextField(label="Nueva Tarea", expand=True)
+
     def add_task(e):
-        success, msg = tarea_controller.guardar_nueva(user['id_usuario'],txt_titulo.value, "","media","trabajo")
+        success, msg = tarea_controller.guardar_nueva(
+            user['idUs'],
+            txt_titulo.value,
+            "",
+            "media",
+            "trabajo"
+        )
         if success:
-            txt_titulo.value= ""
+            txt_titulo.value = ""
             refresh()
+
+    refresh()
+   
     return ft.View("/dashboard",[
         ft.AppBar(
-            title=ft.Text(f"Bienvenido,(user['nombre'])"),
+            title=ft.Text(f"Bienvenido,{user['nombre']}"),
             actions=[ft.IconButton(ft.Icons.EXIT_TO_APP, on_click=lambda _: page.go("/"))]
         ),
         ft.Column([
@@ -36,5 +52,5 @@ def DashboardView(page, tarea_controller):
             ft.Divider(),
             ft.Text("Mis Tareas Pendientes", size=20, weight="bold"),
             lista_tareas
-        ],expand=True, padding=20)
-    ],on_open=lambda _: refresh())
+        ],expand=True)
+    ])

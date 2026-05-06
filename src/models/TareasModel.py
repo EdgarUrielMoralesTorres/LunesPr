@@ -4,20 +4,20 @@ class TareaModel:
     def __init__(self):
         self.db=Database()
     
-    def lister_por_usuario(self, id_usuario):
+    def listar_por_usuario(self, idUs):
      conn = self.db.get_connection()    
      cursor = conn.cursor(dictionary=True)
-     query = "SELECT * FROM tareas WHERE id_usuario = %s ORDER BY fecha_limite ASC"
-     cursor.execute(query,(id_usuario,))
+     query = "SELECT * FROM tareas WHERE idUs = %s ORDER BY fecha_limit ASC"
+     cursor.execute(query,(idUs,))
      resultado =cursor.fetchall()
      conn.close()
      return resultado
 
-    def crear(self,id_usuario,titulo,descripcion,prioridad, clasificacion):
+    def crear(self,idUs,titulo,descripcion,prioridad, clasificacion):
         conn = self.db.get_connection()
         cursor = conn.cursor()
-        query ="""INSERT INTO tareas (id_usuario, titulo, descripcion, prioridad, clasificacion)
+        query ="""INSERT INTO tareas (idUs, titulo, descripcion, prioridad, clasificacion)
                 VALUES (%s,%s,%s,%s,%s)"""
-        cursor.execute(query,(id_usuario,titulo,descripcion,prioridad,clasificacion))
+        cursor.execute(query,(idUs,titulo,descripcion,prioridad,clasificacion))
         conn.commit()
         conn.close()        
