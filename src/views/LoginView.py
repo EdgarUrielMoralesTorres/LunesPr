@@ -36,7 +36,7 @@ def LoginView(page, auth_controller):
             pass_input.value
         )
         if user:
-            page.user_data = user
+            page.user = user
             page.go("/dashboard")
         else:
             page.dialog = alerta
