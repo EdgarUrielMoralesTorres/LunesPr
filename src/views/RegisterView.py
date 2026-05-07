@@ -3,16 +3,17 @@ import flet as ft
 
 def RegisterView(page, auth_controller):
 
-    nombre_input = ft.TextField(label="Nombre",hint_text="Ingresa tu nombre",width=350,border=ft.InputBorder.NONE,icon=ft.Icons.PERSON)
-    apellido_input = ft.TextField(label="Apellidos",hint_text="Ingresa tus apellidos",width=350,border=ft.InputBorder.NONE,icon=ft.Icons.PERSON_OUTLINE)
-    email_input = ft.TextField(label="Correo",hint_text="Ingresa tu correo",width=350,border=ft.InputBorder.NONE,icon=ft.Icons.EMAIL)
-    contra_input = ft.TextField(label="Contraseña",hint_text="Ingresa tu contraseña",password=True,can_reveal_password=True,width=350,border=ft.InputBorder.NONE,icon=ft.Icons.LOCK)
-    confirmar_input = ft.TextField(label="Confirmar contraseña",hint_text="Repite tu contraseña",password=True,can_reveal_password=True,width=350,border=ft.InputBorder.NONE,icon=ft.Icons.LOCK_OUTLINE)
+    nombre_input = ft.TextField(label="Nombre",hint_text="Ingresa tu nombre",width=350,border_radius=10)
+    apellido_input = ft.TextField(label="Apellidos",hint_text="Ingresa tus apellidos",width=350,border_radius=10)
+    email_input = ft.TextField(label="Correo",hint_text="Ingresa tu correo",width=350,border_radius=10)
+    telefono_input = ft.TextField(label="Teléfono",width=350,border_radius=10)
+    contra_input = ft.TextField(label="Contraseña",hint_text="Ingresa tu contraseña",password=True,can_reveal_password=True,width=350,border_radius=10)
+    confirmar_input = ft.TextField(label="Confirmar contraseña",hint_text="Repite tu contraseña",password=True,can_reveal_password=True,width=350,border_radius=10)
     mensaje = ft.Text("", color="red")
 
     def register_click(e):
 
-        if not nombre_input.value or not email_input.value or not contra_input.value or not confirmar_input.value or not apellido_input:
+        if not nombre_input.value or not email_input.value or not contra_input.value or not confirmar_input.value or not apellido_input.value or not telefono_input.value:
             mensaje.value = "Complete todos los los campos"
             page.update()
             return
@@ -22,7 +23,7 @@ def RegisterView(page, auth_controller):
             page.update()
             return
 
-        success, msg = auth_controller.register(nombre_input.value,email_input.value,contra_input.value,apellido_input.value)
+        success, msg = auth_controller.register(nombre_input.value,apellido_input.value,telefono_input.value,email_input.value,contra_input.value)
         mensaje.value = msg
         page.update()
 
@@ -43,6 +44,7 @@ def RegisterView(page, auth_controller):
                     ),
                     nombre_input,
                     apellido_input,
+                    telefono_input,
                     email_input,
                     contra_input,
                     confirmar_input,

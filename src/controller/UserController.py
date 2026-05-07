@@ -17,10 +17,10 @@ class AuthController:
 
         except Exception as e:
             return None, str(e)
-    def register(self, nombre, apellido, email, contra):
+    def register(self, nombre, apellido, telefono,email, contra):
         print(contra)
         try:
-            usuario_data = UsuarioSchema(nombre=nombre,email=email,contra=contra, apellido=apellido)
+            usuario_data = UsuarioSchema(nombre=nombre,telefono=telefono,email=email,contra=contra, apellido=apellido,)
             success, msg = self.model.registrar(usuario_data)
             return success, msg
 

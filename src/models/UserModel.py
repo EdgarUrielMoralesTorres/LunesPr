@@ -14,8 +14,8 @@ class UsuarioModel:
         cursor = conn.cursor()
 
         try:
-            query = """INSERT INTO usuarios (nombre, apellido,email, contra)VALUES (%s, %s, %s, %s)"""
-            values = (usuario_data.nombre,usuario_data.apellido,usuario_data.email,hashed_pw.decode('utf-8'))
+            query = """INSERT INTO usuarios (nombre, apellido,telefono,email, contra,activo,fecha_regis,foto_perfil)VALUES (%s, %s, %s,%s, %s,%s,%s,%s)"""
+            values = (usuario_data.nombre,usuario_data.apellido,usuario_data.telefono,usuario_data.email,hashed_pw.decode('utf-8'), usuario_data.activo,usuario_data.fecha_registro,usuario_data.foto_perfil)
             cursor.execute(query, values)
             conn.commit()
 
